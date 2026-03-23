@@ -1,0 +1,44 @@
+---
+description: WordPress 公式リファレンスに従った実装指針
+globs: "**/*.php"
+alwaysApply: false
+---
+
+# WordPress Developer Reference 準拠
+
+## 情報源
+
+実装方法や改善提案は **WordPress Developer Reference（公式リファレンス）** を一次情報源とする。
+
+- リファレンス: https://developer.wordpress.org/reference/
+- 関数・フックの仕様は上記で確認し、推奨される API を優先して使用する
+
+## テンプレート読み込み時の引数渡し
+
+`get_header()`, `get_footer()`, `get_sidebar()` は第2引数 `$args` でテンプレートに変数を渡せる（WordPress 5.5.0 以降）。
+
+```php
+// ✅ 推奨: 第2引数で直接渡す
+get_footer( null, array( 'footer_bg_class' => 'bg-brand-sakura-bg' ) );
+
+// ❌ 非推奨: set_query_var による迂回（第2引数が使える場合は不要）
+set_query_var( 'footer_bg_class', 'bg-brand-sakura-bg' );
+get_footer();
+```
+
+`get_template_part()` は第3引数 `$args` で渡す。
+
+```php
+get_template_part( 'template-parts/inc/section-header', null, array(
+  'section_title' => 'Message',
+  'section_subtitle' => 'メッセージ',
+) );
+```
+
+## 実装前の確認
+
+新しい WordPress API を使う際は、公式リファレンスで以下を確認する。
+
+- 利用可能な引数・パラメータ
+- 非推奨・廃止された代替手段の有無
+- 関連する `load_template`, `locate_template` などの連鎖

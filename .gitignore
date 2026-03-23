@@ -32,6 +32,12 @@ wp-config.php
 # Log files
 *.log
 
+# Dependencies
+node_modules/
+
+# Theme archive
+*.zip
+
 # htaccess
 /.htaccess
 
