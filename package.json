@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "dev": "concurrently \"npm run build:watch\" \"npm run sync\"",
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "sync": "browser-sync start --config bs-config.js",
+    "preview": "vite preview",
+    "package": "npm run build && cat .package-include | zip -r@ kaisokaiso-wp-classic-starter.zip"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.0",
+    "tailwindcss": "^4.2.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.2.1"
+  }
+}

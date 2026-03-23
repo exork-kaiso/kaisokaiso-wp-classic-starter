@@ -1,0 +1,46 @@
+@theme {
+  /* 余白 */
+  --spacing-26: 6.5rem; /* 104px（Voice セクションの余白用） */
+  --spacing-42: 10.5rem; /* 168px（Voice 一覧の上下 gap 用） */
+
+  /* 色 */
+  --color-brand-red: #E70012;
+  --color-brand-sakura-bg: #fcf5f5;
+  --color-brand-deep-sakura: #F5DAD5;
+  --color-brand-sky-bg: #EAF2FD;
+  --color-side-cta-line: #2FC753;
+  --color-message-heading: #D9C6A3;
+  --color-message-bg: #F5F0E6;
+  --color-message-bubble: #FCEDEA; /* 本部長メッセージ吹き出し背景 */
+  --color-message-accent: #E62923;
+  --color-entry-bg: #EAF2FD;
+  --color-entry-heading: #D0E4FB;
+  --color-entry-line-brand: #06C755;
+  --color-entry-line-text: #05A747;
+  --color-entry-tel-heading: #0C51A2;
+  --color-input-border: #AEAEAE;
+  --color-input-placeholder: #C8C8C8;
+  --color-info-border: #b1b7ba; /* 会社情報テーブルの区切り線 */
+  --color-grey: #9E9E9E;
+  --color-grey-light: #D9D9D9;
+
+  /* フォント */
+  --font-zen-maru-gothic: "Zen Maru Gothic", sans-serif;
+  --font-dancing-script: "Dancing Script", cursive;
+  --font-klee-one: "Klee One", cursive;
+
+  /* letter-spacing */
+  --tracking-15: 0.15em; /* LINEボタン補足文 */
+
+  /* 角丸 */
+  --radius-card: 2.5rem; /* 40px（カードの角丸） */
+
+  /* 文字サイズ */
+  --text-40: 2.5rem; /* 40px（LINE見出し） */
+
+  /* line-height（2は leading-loose で対応） */
+  --leading-compact: 1.2;
+  --leading-readable: 1.4;
+  --leading-comfortable: 1.6;
+  --leading-spacious: 1.8;
+}

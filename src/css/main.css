@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+/* PHP テンプレートをスキャン対象に含める（@tailwindcss/vite は Vite エントリ経由のファイルのみスキャンするため） */
+@source "../..";
+
+
+/* モーダル表示時のスクロールロック */
+body.js-scroll-lock {
+  overflow: hidden;
+}
+
+/* ダイアログのバックドロップ */
+.js-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* メッセージページ：赤い装飾シェイプ */
+.message-heart-shape path {
+  fill: var(--color-message-accent);
+}
+
+/* 募集要項アコーディオン */
+.js-accordion-content {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s ease-in-out;
+}
+.js-accordion-content.is-collapsed {
+  grid-template-rows: 0fr;
+}
+.js-accordion-content > div {
+  overflow: hidden;
+}
+
