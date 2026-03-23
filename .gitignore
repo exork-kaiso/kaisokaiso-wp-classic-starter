@@ -38,6 +38,9 @@ node_modules/
 # Theme archive
 *.zip
 
+# macOS system files
+.DS_Store
+
 # Environment variables
 .env
 .env.*

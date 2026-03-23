@@ -111,3 +111,76 @@ add_filter( 'script_loader_tag', 'kaisokaiso_wp_classic_starter_script_loader_ta
  * Contact Form 7 の CSS を読み込まない
  */
 add_filter( 'wpcf7_load_css', '__return_false' );
+
+/**
+ * WordPressのバージョン情報を非表示にする
+ */
+// <meta name="generator"> タグを削除
+remove_action( 'wp_head', 'wp_generator' );
+
+// 各種フィードからバージョン情報を削除
+foreach ( array( 'rss2_head', 'commentsrss2_head', 'rss_head', 'rdf_header', 'atom_head', 'comments_atom_head' ) as $action ) {
+  remove_action( $action, 'the_generator' );
+}
+
+/**
+ * wp_head の不要なリンクタグを削除する
+ */
+remove_action( 'wp_head', 'wlwmanifest_link' );    // Windows Live Writer マニフェスト
+remove_action( 'wp_head', 'rsd_link' );             // Really Simple Discovery（XML-RPC関連）
+remove_action( 'wp_head', 'wp_shortlink_wp_head' ); // 短縮URL
+
+/**
+ * REST API のユーザー一覧エンドポイントを無効化する
+ */
+function kaisokaiso_wp_classic_starter_disable_rest_users( $endpoints ) {
+  if ( ! is_user_logged_in() ) {
+    if ( isset( $endpoints['/wp/v2/users'] ) ) {
+      unset( $endpoints['/wp/v2/users'] );
+    }
+    if ( isset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] ) ) {
+      unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+    }
+  }
+  return $endpoints;
+}
+add_filter( 'rest_endpoints', 'kaisokaiso_wp_classic_starter_disable_rest_users' );
+
+/**
+ * ログインエラーメッセージを汎用化する（ユーザー名の存在を隠す）
+ */
+function kaisokaiso_wp_classic_starter_login_errors() {
+  return 'ユーザー名またはパスワードが正しくありません。';
+}
+add_filter( 'login_errors', 'kaisokaiso_wp_classic_starter_login_errors' );
+
+/**
+ * XML-RPC を無効化する（ブルートフォース・DDoS攻撃の入口を塞ぐ）
+ */
+add_filter( 'xmlrpc_enabled', '__return_false' );
+
+/**
+ * X-Pingback ヘッダーを削除する
+ */
+function kaisokaiso_wp_classic_starter_remove_x_pingback( $headers ) {
+  unset( $headers['X-Pingback'] );
+  return $headers;
+}
+add_filter( 'wp_headers', 'kaisokaiso_wp_classic_starter_remove_x_pingback' );
+
+/**
+ * oEmbed 探索リンクを wp_head から削除する
+ */
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+
+/**
+ * Author archive へのアクセス時にユーザー名が URL に露出しないようにする
+ */
+function kaisokaiso_wp_classic_starter_block_author_scan() {
+  if ( ! is_admin() && isset( $_GET['author'] ) ) {
+    wp_redirect( home_url( '/' ), 301 );
+    exit;
+  }
+}
+add_action( 'template_redirect', 'kaisokaiso_wp_classic_starter_block_author_scan' );
