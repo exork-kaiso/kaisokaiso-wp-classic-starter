@@ -38,6 +38,17 @@ node_modules/
 # Theme archive
 *.zip
 
+# Environment variables
+.env
+.env.*
+
+# Database dumps
+*.sql
+
+# SSL certificates and private keys
+*.pem
+*.key
+
 # htaccess
 /.htaccess
 
